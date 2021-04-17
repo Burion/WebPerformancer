@@ -23,7 +23,6 @@ namespace WebPerformancer
             string html = wc.DownloadString(_link);
 
             string baselink = Regex.Match(_link, "http[s]?://[aA-zZ0-9.]+").Value;
-            Console.WriteLine(baselink);
             Regex rx = new Regex($"{baselink}[/aA-zZ0-9/.]+");
             foreach(var m in rx.Matches(html))
             {

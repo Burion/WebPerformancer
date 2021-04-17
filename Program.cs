@@ -29,6 +29,17 @@ namespace WebPerformancer
             {
                 Console.WriteLine($"{l}");
             }
+            Console.WriteLine("Unique in sitemap:");
+            foreach(var l in ListAssembler.UniqueItemsInOriginal(linksSitemap, linksWebparser))
+            {
+                Console.WriteLine(l);
+            }
+
+            Console.WriteLine("Unique in web page:");
+            foreach(var l in ListAssembler.UniqueItemsInOriginal(linksWebparser, linksSitemap))
+            {
+                Console.WriteLine(l);
+            }
         }
     }
 }
