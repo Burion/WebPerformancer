@@ -6,7 +6,7 @@ using System.Xml;
 
 namespace WebPerformancer 
 {
-    public class SiteMapParser: SiteParser
+    public class SiteMapParser: ISiteParser
     {
         public List<string> Links {get;set;}
         readonly string _link;

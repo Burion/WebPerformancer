@@ -8,11 +8,13 @@ namespace WebPerformancer
     {
         static void Main(string[] args)
         {
-            SiteParser siteMap = new SiteMapParser("https://writemaps.com");
-            foreach(var s in siteMap.GetLinks())
-            {
-                Console.WriteLine(s);
-            }
+            // ISiteParser siteMap = new SiteMapParser("https://writemaps.com");
+            // foreach(var s in siteMap.GetLinks())
+            // {
+            //     Console.WriteLine(s);
+            // }
+            ISiteParser webparser = new WebSiteParser("https://stackoverflow.com");
+            webparser.GetLinks();
         }
     }
 }
