@@ -13,7 +13,8 @@ namespace WebPerformancer
             // {
             //     Console.WriteLine(s);
             // }
-            string url = "https://writemaps.com/blog/how-to-find-your-sitemap/";
+            //string url = "https://writemaps.com/blog/how-to-find-your-sitemap/";
+            string url = "https://regex101.com";
             ISiteParser sitemapParser = new SiteMapParser(url);
             ISiteParser webParser = new WebSiteParser(url); 
             var linksSitemap = sitemapParser.GetLinks();
@@ -40,6 +41,9 @@ namespace WebPerformancer
             {
                 Console.WriteLine(l);
             }
+
+            PerformanceHendler ph = new PerformanceHendler(ListAssembler.Merge(linksSitemap, linksWebparser));
+            ph.CheckPerformanceAndPrint();
         }
     }
 }
