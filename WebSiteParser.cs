@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Text.RegularExpressions;
+using System.Linq;
 
 namespace WebPerformancer 
 {
@@ -12,6 +13,7 @@ namespace WebPerformancer
         public WebSiteParser(string link) 
         {
             _link = link;
+            Links = new List<string>();
         }
 
         public List<string> GetLinks()
@@ -25,7 +27,12 @@ namespace WebPerformancer
             Regex rx = new Regex($"{baselink}[/aA-zZ0-9/.]+");
             foreach(var m in rx.Matches(html))
             {
-                Console.WriteLine(m);
+                Links.Add(m.ToString());
+            }
+            Links = Links.Distinct().ToList();
+            foreach(var l in Links)
+            {
+                Console.WriteLine(l);
             }
             return new List<string>();
         

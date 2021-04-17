@@ -13,7 +13,7 @@ namespace WebPerformancer
             // {
             //     Console.WriteLine(s);
             // }
-            ISiteParser webparser = new WebSiteParser("https://stackoverflow.com");
+            ISiteParser webparser = new SiteMapParser("https://regex101.com");
             webparser.GetLinks();
         }
     }
