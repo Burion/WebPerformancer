@@ -30,11 +30,7 @@ namespace WebPerformancer
                 Links.Add(m.ToString());
             }
             Links = Links.Distinct().ToList();
-            foreach(var l in Links)
-            {
-                Console.WriteLine(l);
-            }
-            return new List<string>();
+            return Links;
         
         }
     }

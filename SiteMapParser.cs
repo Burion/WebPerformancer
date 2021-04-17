@@ -37,31 +37,52 @@ namespace WebPerformancer
             }
             return sitemaps;
         }
+
+
+        List<string> ReadSiteMapRecursive(string url)
+        {
+            List<string> resultLinks = new List<string>();
+            WebClient wc = new WebClient();
+            wc.Encoding = System.Text.Encoding.UTF8;
+            string sitemapString = wc.DownloadString(url);
+            XmlDocument urldoc = new XmlDocument();
+            urldoc.LoadXml(sitemapString);
+
+            XmlNodeList sitemaps = urldoc.GetElementsByTagName("sitemap");
+            foreach (XmlNode node in sitemaps)
+            {
+                resultLinks.AddRange(ReadSiteMapRecursive(node["loc"].InnerText));
+            }
+
+            XmlNodeList xmlSitemapList = urldoc.GetElementsByTagName("url");
+            foreach (XmlNode node in xmlSitemapList)
+            {
+                resultLinks.Add(node["loc"].InnerText);
+            }
+            return resultLinks;
+        }
+
         public List<string> GetLinks()
         {
             List<string> sitemaplinks = SitemapsFromRobots();
             sitemaplinks.Add(_link + "/sitemap.xml");
             sitemaplinks.Add(_link + "/sitemap_index.xml");
             sitemaplinks.Add(_link + "/sitemapindex.xml");
-
+            
+            if(sitemaplinks.Count == 0)
+            {
+                Console.WriteLine("Sitemap file not found");
+            }
+            else
             foreach(var l in sitemaplinks)
             {
                 try 
                 {
-                    WebClient wc = new WebClient();
-                    wc.Encoding = System.Text.Encoding.UTF8;
-                    string sitemapString = wc.DownloadString(l);
-                    XmlDocument urldoc = new XmlDocument();
-                    urldoc.LoadXml(sitemapString);
-                    XmlNodeList xmlSitemapList = urldoc.GetElementsByTagName("url");
-                    foreach (XmlNode node in xmlSitemapList)
-                    {
-                        Links.Add(node["loc"].InnerText);
-                    }
+                    Links = ReadSiteMapRecursive(l);
                 }
                 catch (Exception)
                 {
-                    Console.WriteLine($"No sitemap found for {l}");
+                    
                 }
                 
             }

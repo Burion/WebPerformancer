@@ -13,8 +13,22 @@ namespace WebPerformancer
             // {
             //     Console.WriteLine(s);
             // }
-            ISiteParser webparser = new SiteMapParser("https://regex101.com");
-            webparser.GetLinks();
+            string url = "https://writemaps.com";
+            ISiteParser sitemapParser = new SiteMapParser(url);
+            ISiteParser webParser = new WebSiteParser(url); 
+            var linksSitemap = sitemapParser.GetLinks();
+            var linksWebparser = webParser.GetLinks();
+            Console.WriteLine("Found in sitemap.xml:");
+            foreach(var l in linksSitemap)
+            {
+                Console.WriteLine($"{l}");
+            }
+
+            Console.WriteLine("Found in page:");
+            foreach(var l in linksWebparser)
+            {
+                Console.WriteLine($"{l}");
+            }
         }
     }
 }
