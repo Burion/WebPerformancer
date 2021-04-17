@@ -11,9 +11,11 @@ namespace WebPerformancer
     {
         public List<string> Links {get;set;}
         readonly string _link;
+        readonly string baselink;
         public SiteMapParser(string link) 
         {
             _link = link;
+            baselink = LinkHelper.GetBaseLink(_link);
             Links = new List<string>();
         }
 
@@ -24,7 +26,7 @@ namespace WebPerformancer
             {
                 WebClient wc = new WebClient();
                 wc.Encoding = System.Text.Encoding.UTF8;
-                string robotsContent = wc.DownloadString(_link + "/robots.txt");
+                string robotsContent = wc.DownloadString(LinkHelper.GetBaseLink(_link) + "/robots.txt");
                 Regex r = new Regex("[aA-zZ0-9./:]+.xml");
                 foreach(var l in r.Matches(robotsContent))
                 {
@@ -64,10 +66,11 @@ namespace WebPerformancer
 
         public List<string> GetLinks()
         {
+            
             List<string> sitemaplinks = SitemapsFromRobots();
-            sitemaplinks.Add(_link + "/sitemap.xml");
-            sitemaplinks.Add(_link + "/sitemap_index.xml");
-            sitemaplinks.Add(_link + "/sitemapindex.xml");
+            sitemaplinks.Add(baselink + "/sitemap.xml");
+            sitemaplinks.Add(baselink + "/sitemap_index.xml");
+            sitemaplinks.Add(baselink + "/sitemapindex.xml");
             
             if(sitemaplinks.Count == 0)
             {

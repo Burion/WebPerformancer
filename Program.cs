@@ -13,7 +13,7 @@ namespace WebPerformancer
             // {
             //     Console.WriteLine(s);
             // }
-            string url = "https://writemaps.com";
+            string url = "https://writemaps.com/blog/how-to-find-your-sitemap/";
             ISiteParser sitemapParser = new SiteMapParser(url);
             ISiteParser webParser = new WebSiteParser(url); 
             var linksSitemap = sitemapParser.GetLinks();
