@@ -64,6 +64,7 @@ namespace WebPerformancer
                         {
                             Console.WriteLine($"{l}");
                         }
+                        Console.WriteLine("Press enter:");
                         Console.ReadLine();
                     break;
 
@@ -73,16 +74,18 @@ namespace WebPerformancer
                         {
                             Console.WriteLine($"{l}");
                         }
+                        Console.WriteLine("Press enter:");
                         Console.ReadLine();
                     break;
 
                     case ConsoleKey.D3: 
                         
-                        Console.WriteLine("Found in sitemap.xml:");
-                        foreach(var l in linksSitemap)
+                        Console.WriteLine("All found links:");
+                        foreach(var l in ListAssembler.Merge(linksSitemap, linksWebparser))
                         {
                             Console.WriteLine($"{l}");
                         }
+                        Console.WriteLine("Press enter:");
                         Console.ReadLine();
                     break;
                     case ConsoleKey.D4: 
@@ -92,21 +95,24 @@ namespace WebPerformancer
                         {
                             Console.WriteLine(l);
                         }
+                        Console.WriteLine("Press enter:");
                         Console.ReadLine();
                     break;
                     case ConsoleKey.D5: 
                         
-                         Console.WriteLine("Unique in web page:");
+                        Console.WriteLine("Unique in web page:");
                         foreach(var l in ListAssembler.UniqueItemsInOriginal(linksWebparser, linksSitemap))
                         {
                             Console.WriteLine(l);
                         }
+                        Console.WriteLine("Press enter:");
                         Console.ReadLine();
                     break;
                     case ConsoleKey.D6: 
                         
                         PerformanceHendler ph = new PerformanceHendler(ListAssembler.Merge(linksSitemap, linksWebparser));
                         ph.CheckPerformanceAndPrint();
+                        Console.WriteLine("Press enter:");
                         Console.ReadLine();
                     break;
                     case ConsoleKey.D7: 

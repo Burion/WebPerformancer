@@ -89,7 +89,7 @@ namespace WebPerformancer
                 }
                 
             }
-            return Links;
+            return Links.Distinct().ToList();
         }
     }
 }
