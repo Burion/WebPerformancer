@@ -7,7 +7,7 @@ namespace WebPerformancer
     {
         public static string GetBaseLink(string link)
         {
-            return Regex.Match(link, "http[s]?://[aA-zZ0-9.]+").Value;
+            return Regex.Match(link, "http[s]?://[aA-zZ0-9.-]+").Value;
         }
     }
 }

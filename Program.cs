@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Xml;
+using System.Linq;
 
 namespace WebPerformancer
 {
@@ -113,8 +114,11 @@ namespace WebPerformancer
                     break;
                     case ConsoleKey.D6: 
                         
-                        PerformanceHendler ph = new PerformanceHendler(ListAssembler.Merge(linksSitemap, linksWebparser));
-                        ph.CheckPerformanceAndPrint();
+                        PerformanceHandler ph = new PerformanceHandler(ListAssembler.Merge(linksSitemap, linksWebparser));
+                        Console.WriteLine("Please, wait...");
+                        var dict = ph.GetPerformance();
+                        Console.Clear();
+                        ph.PrintPerformance(dict.OrderBy(r => r.Value).ToDictionary(r => r.Key, r => r.Value));
                         Console.WriteLine("Press enter.");
                         Console.ReadLine();
                     break;
