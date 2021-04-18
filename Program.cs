@@ -11,7 +11,6 @@ namespace WebPerformancer
         static List<string> linksSitemap;
         static List<string> linksWebparser;
 
-        //string url = "https://regex101.com";
         static void Main(string[] args)
         {
             Console.WriteLine("2021 - Buriak Vladyslav");
