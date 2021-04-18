@@ -10,7 +10,6 @@ namespace WebPerformancer
     {
         static List<string> linksSitemap;
         static List<string> linksWebparser;
-        ISiteParser webParser;
 
         //string url = "https://regex101.com";
         static void Main(string[] args)

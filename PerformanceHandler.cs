@@ -5,10 +5,10 @@ using System.Net;
 
 namespace WebPerformancer
 {
-    public class PerformanceHendler
+    public class PerformanceHandler
     {
         readonly List<string> Links;
-        public PerformanceHendler(List<string> links)
+        public PerformanceHandler(List<string> links)
         {
             Links = links;
         }

@@ -67,9 +67,9 @@ namespace WebPerformancer
                     resultLinks.Add(node["loc"].InnerText);
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                Console.WriteLine(e.Message);
+                
             }
             
             return resultLinks;
