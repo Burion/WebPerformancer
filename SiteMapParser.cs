@@ -82,6 +82,7 @@ namespace WebPerformancer
                 try 
                 {
                     Links = ReadSiteMapRecursive(l);
+                    Console.WriteLine($"Found following sitemap file: {l}");
                 }
                 catch (Exception)
                 {

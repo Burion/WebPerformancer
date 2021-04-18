@@ -29,7 +29,10 @@ namespace WebPerformancer
                     ISiteParser webParser = new WebSiteParser(url); 
                     linksSitemap = sitemapParser.GetLinks();
                     linksWebparser = webParser.GetLinks();
+                    Console.WriteLine("Press Enter.");
+                    Console.ReadLine();
                     break;
+
 
                 }
                 catch (Exception)
@@ -43,7 +46,7 @@ namespace WebPerformancer
             while(true) 
             {
                 Console.Clear();
-                Console.WriteLine("Select the option (press appropriate key):");
+                Console.WriteLine("Select the option (press appropriate digit key on keyboard or NumPad):");
                 Console.WriteLine("1. Show links is sitemaps.");
                 Console.WriteLine("2. Show links from site parsing.");
                 Console.WriteLine("3. Merge links.");
@@ -64,7 +67,7 @@ namespace WebPerformancer
                         {
                             Console.WriteLine($"{l}");
                         }
-                        Console.WriteLine("Press enter:");
+                        Console.WriteLine("Press enter.");
                         Console.ReadLine();
                     break;
 
@@ -74,7 +77,7 @@ namespace WebPerformancer
                         {
                             Console.WriteLine($"{l}");
                         }
-                        Console.WriteLine("Press enter:");
+                        Console.WriteLine("Press enter.");
                         Console.ReadLine();
                     break;
 
@@ -85,7 +88,7 @@ namespace WebPerformancer
                         {
                             Console.WriteLine($"{l}");
                         }
-                        Console.WriteLine("Press enter:");
+                        Console.WriteLine("Press enter.");
                         Console.ReadLine();
                     break;
                     case ConsoleKey.D4: 
@@ -95,7 +98,7 @@ namespace WebPerformancer
                         {
                             Console.WriteLine(l);
                         }
-                        Console.WriteLine("Press enter:");
+                        Console.WriteLine("Press enter.");
                         Console.ReadLine();
                     break;
                     case ConsoleKey.D5: 
@@ -105,14 +108,14 @@ namespace WebPerformancer
                         {
                             Console.WriteLine(l);
                         }
-                        Console.WriteLine("Press enter:");
+                        Console.WriteLine("Press enter.");
                         Console.ReadLine();
                     break;
                     case ConsoleKey.D6: 
                         
                         PerformanceHendler ph = new PerformanceHendler(ListAssembler.Merge(linksSitemap, linksWebparser));
                         ph.CheckPerformanceAndPrint();
-                        Console.WriteLine("Press enter:");
+                        Console.WriteLine("Press enter.");
                         Console.ReadLine();
                     break;
                     case ConsoleKey.D7: 
