@@ -16,9 +16,10 @@ namespace WebPerformancer
 
         public static List<string> Merge(List<string> first, List<string> second)
         {
-            first.AddRange(second);
-            first = first.Distinct().ToList();
-            return first;
+            var clone = new List<string>(first);
+            clone.AddRange(second);
+            clone = clone.Distinct().ToList();
+            return clone;
         }
     }
 }
