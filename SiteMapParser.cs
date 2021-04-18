@@ -36,8 +36,6 @@ namespace WebPerformancer
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-
-                //Console.WriteLine($"No robots.txt file for {LinkHelper.GetBaseLink(_link)}");
             }
             return sitemaps;
         }
