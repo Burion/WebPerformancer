@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Xml;
 
@@ -6,23 +7,38 @@ namespace WebPerformancer
 {
     class Program
     {
+        static List<string> linksSitemap;
+        static List<string> linksWebparser;
+        ISiteParser webParser;
 
+        //string url = "https://regex101.com";
         static void Main(string[] args)
         {
             Console.WriteLine("2021 - Buriak Vladyslav");
+            
+            while(true)
+            {
+                Console.WriteLine("Please, enter the url:");
+                var url = Console.ReadLine();
+                Console.Clear();
+                Console.WriteLine("Please, wait...");
 
-            Console.WriteLine("Please, enter the url:");
-            var url = Console.ReadLine();
+                try 
+                {
+                    ISiteParser sitemapParser = new SiteMapParser(url);
+                    ISiteParser webParser = new WebSiteParser(url); 
+                    linksSitemap = sitemapParser.GetLinks();
+                    linksWebparser = webParser.GetLinks();
+                    break;
 
-            Console.Clear();
-            Console.WriteLine("Please, wait...");
-            //string url = "https://writemaps.com/blog/how-to-find-your-sitemap/";
-            //string url = "https://regex101.com";
-            //string url = "https://stackoverflow.com/questions/1952185/how-do-i-copy-items-from-list-to-list-without-foreach";
-            ISiteParser sitemapParser = new SiteMapParser(url);
-            ISiteParser webParser = new WebSiteParser(url); 
-            var linksSitemap = sitemapParser.GetLinks();
-            var linksWebparser = webParser.GetLinks();
+                }
+                catch (Exception)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("The url is not found.");
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+            }
 
             while(true) 
             {
