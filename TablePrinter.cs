@@ -16,7 +16,7 @@ namespace WebPerformancer
         public void Print()
         {
             PrintLine();
-            PrintRow("Link", "Time", "Taken From");
+            PrintRow("Url", "Timing (ms)", "Taken From");
             PrintLine();
             foreach(var l in _records)
             {   
