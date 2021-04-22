@@ -41,94 +41,26 @@ namespace WebPerformancer
                     Console.ForegroundColor = ConsoleColor.White;
                 }
             }
-
-            while(true) 
+            
+            PerformanceHandler ph = new PerformanceHandler(ListAssembler.Merge(linksSitemap, linksWebparser));
+            Console.WriteLine("Please, wait...");
+            var dict = ph.GetPerformance();
+            
+            List<LinkRecordModel> records = new List<LinkRecordModel>();
+            foreach(var kv in dict.OrderBy(r => r.Value).ToDictionary(r => r.Key, r => r.Value))
             {
-                Console.Clear();
-                Console.WriteLine("Select the option (press appropriate digit key on keyboard or NumPad):");
-                Console.WriteLine("1. Show links is sitemaps.");
-                Console.WriteLine("2. Show links from site parsing.");
-                Console.WriteLine("3. Merge links.");
-                Console.WriteLine("4. Show unique links in sitemap.");
-                Console.WriteLine("5. Show unique links from site parsing.");
-                Console.WriteLine("6. Estimate performance of all links.");
-                Console.WriteLine("7. Exit.");
+                int takenFrom = ListAssembler.UniqueItemsInOriginal(linksWebparser, linksSitemap).Contains(kv.Key) 
+                ? (int)Sources.WebSite 
+                : ListAssembler.UniqueItemsInOriginal(linksSitemap, linksWebparser).Contains(kv.Key) 
+                ? (int)Sources.Sitemaps
+                : (int)Sources.Both;
 
-                var k = Console.ReadKey();
-                
-                Console.Clear();
-                switch(k.Key)
-                {
-                    case ConsoleKey.D1: 
-                        
-                        Console.WriteLine("Found in sitemap.xml:");
-                        foreach(var l in linksSitemap)
-                        {
-                            Console.WriteLine($"{l}");
-                        }
-                        Console.WriteLine("Press enter.");
-                        Console.ReadLine();
-                    break;
-
-                    case ConsoleKey.D2: 
-                        Console.WriteLine("Found in page:");
-                        foreach(var l in linksWebparser)
-                        {
-                            Console.WriteLine($"{l}");
-                        }
-                        Console.WriteLine("Press enter.");
-                        Console.ReadLine();
-                    break;
-
-                    case ConsoleKey.D3: 
-                        
-                        Console.WriteLine("All found links:");
-                        foreach(var l in ListAssembler.Merge(linksSitemap, linksWebparser))
-                        {
-                            Console.WriteLine($"{l}");
-                        }
-                        Console.WriteLine("Press enter.");
-                        Console.ReadLine();
-                    break;
-                    case ConsoleKey.D4: 
-                        
-                        Console.WriteLine("Unique in sitemap:");
-                        foreach(var l in ListAssembler.UniqueItemsInOriginal(linksSitemap, linksWebparser))
-                        {
-                            Console.WriteLine(l);
-                        }
-                        Console.WriteLine("Press enter.");
-                        Console.ReadLine();
-                    break;
-                    case ConsoleKey.D5: 
-                        
-                        Console.WriteLine("Unique in web page:");
-                        foreach(var l in ListAssembler.UniqueItemsInOriginal(linksWebparser, linksSitemap))
-                        {
-                            Console.WriteLine(l);
-                        }
-                        Console.WriteLine("Press enter.");
-                        Console.ReadLine();
-                    break;
-                    case ConsoleKey.D6: 
-                        
-                        PerformanceHandler ph = new PerformanceHandler(ListAssembler.Merge(linksSitemap, linksWebparser));
-                        Console.WriteLine("Please, wait...");
-                        var dict = ph.GetPerformance();
-                        Console.Clear();
-                        ph.PrintPerformance(dict.OrderBy(r => r.Value).ToDictionary(r => r.Key, r => r.Value));
-                        Console.WriteLine("Press enter.");
-                        Console.ReadLine();
-                    break;
-                    case ConsoleKey.D7: 
-                        Environment.Exit(0);
-                    break;
-                    default:
-
-                    break;
-
-                }
+                records.Add(new LinkRecordModel() { Link = kv.Key, AnswerTimeMills = kv.Value, TakenFrom = takenFrom });
             }
+            TablePrinter tp = new TablePrinter(records, 150);
+            tp.Print();
+            Console.ReadLine();
+        
         }
     }
 }
